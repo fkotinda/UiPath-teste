@@ -1,0 +1,550 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.ComponentModel;assembly=System.ComponentModel.TypeConverter" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System.Text.RegularExpressions" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>850.4,6198.4</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="50">
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Windows.Forms</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.ExtractData</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities.Business</x:String>
+      <x:String>UiPath.Excel.Model</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="80">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="720.8,6133.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="658.4,142.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
+    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="658.4,56" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome: The New York Times - Breaking News, US News, World News and Videos" sap:VirtualizedContainerService.HintSize="658.4,5667.2" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" ScopeGuid="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V2">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Fazer" sap:VirtualizedContainerService.HintSize="624.8,5450.4" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="sd:DataTable" Name="ExtractDataTable" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'PATH'" sap:VirtualizedContainerService.HintSize="562.4,157.6" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/" CvElementArea="267, 130, 27, 27" CvType="Icon" DesignTimeRectangle="274, 135, 18, 18" DesignTimeScaleFactor="1.25" ElementType="Icon" FriendlyName="'PATH'" FullSelectorArgument="&lt;webctrl parentid='app' tag='path' /&gt;" FuzzySelectorArgument="&lt;webctrl parentid='app' tag='path' type='' class='' aaname='' /&gt;" Guid="e606bd6f-90df-43ac-bef9-167cfc961942" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAADySURBVEhLvZOLDYMwDAW7E3OwBnOwBmswB2swh6uL+iLTBsf90JMsqgJn+wE3u4j/ivd9t3VdbZ5nm6bJlmWxbdseZ3O8iJEMw9AsmtA0w0HMjZIwLU0o/h/HsZ7LyKtYkyJorY1M8szkRcxFmibK0st5BhFFrGmZpIeuJaqIg5hjDzbKDFHEdM+sB4qNSCKKGGFmPfAPOaKItR7Ve9p6JXuxFTHoBiY5kysyqvclVrF/lTgyETdTRKXGvqLtqhiQSJ6tM/lBLDShmvCbGM4at+RNcYSPLJK/LYaWnK08H4nhWf4zMSAne+Xv+UoccZHY7A5kkZXXVdliDgAAAABJRU5ErkJggg==" InformativeScreenshot="403a13ebf4f7cc84c5ffd49cb3b555cb.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Breaking News, US News, World News and Videos' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
+                  <uix:TargetAnchorable.Anchors>
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                      <uix:Target CvTextArea="687, 166, 541, 67" CvTextArgument="The New York Times" CvType="Text" DesignTimeRectangle="691, 167, 535, 73" ElementType="Icon" FriendlyName="'PATH'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;header&amp;gt;div&amp;gt;div&amp;gt;a&amp;gt;svg&amp;gt;path' parentid='app' tag='path' /&gt;" FuzzySelectorArgument="&lt;webctrl type='' parentid='app' tag='path' class='' aaname='' /&gt;" SearchSteps="FuzzySelector, CV" />
+                    </scg:List>
+                  </uix:TargetAnchorable.Anchors>
+                </uix:TargetAnchorable>
+              </uix:NClick.Target>
+            </uix:NClick>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'DIV'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="562.4,218.4" sap2010:WorkflowViewState.IdRef="NTypeInto_1" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Text="[in_Config(&quot;SearchPhrase&quot;).ToString]" Version="V3">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/" CvElementArea="309, 122, 285, 45" CvType="InputBox" DesignTimeRectangle="312, 189, 279, 41" DesignTimeScaleFactor="1.25" ElementType="InputBox" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl parentid='search-input' tag='DIV' /&gt;" FuzzySelectorArgument="&lt;webctrl parentid='search-input' tag='DIV' type='' class='css-83e46w' aaname='' /&gt;" Guid="9d3c076e-7a00-4719-b00d-fc6a96f02cf1" InformativeScreenshot="ac9c936a6eda4a0e5581e8d9e2f18e88.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Breaking News, US News, World News and Videos' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
+                  <uix:TargetAnchorable.Anchors>
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                      <uix:Target DesignTimeRectangle="596, 188, 43, 41" ElementType="Button" FriendlyName="'Go'" FullSelectorArgument="&lt;webctrl tag='BUTTON' type='submit' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='BUTTON' type='submit' class='css-1gudca6 e1iflr852' aaname='Go' check:innerText='GO' /&gt;" SearchSteps="FuzzySelector" />
+                    </scg:List>
+                  </uix:TargetAnchorable.Anchors>
+                </uix:TargetAnchorable>
+              </uix:NTypeInto.Target>
+            </uix:NTypeInto>
+            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Go'" sap:VirtualizedContainerService.HintSize="562.4,157.6" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/" CvElementArea="593, 186, 47, 46" CvTextArea="606, 202, 21, 12" CvTextArgument="GO" CvType="Button" DesignTimeRectangle="596, 188, 43, 41" DesignTimeScaleFactor="1.25" ElementType="Button" FriendlyName="'Go'" FullSelectorArgument="&lt;webctrl tag='BUTTON' type='submit' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='BUTTON' type='submit' class='css-1gudca6 e1iflr852' aaname='Go' check:innerText='GO' /&gt;" Guid="1a7ae851-a7bc-4494-9248-a36b4c753b88" InformativeScreenshot="53d59e93a35cd1c183982f183b355277.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Breaking News, US News, World News and Videos' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
+                  <uix:TargetAnchorable.Anchors>
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                      <uix:Target CvTextArea="687, 230, 541, 68" CvTextArgument="The New York Times" CvType="Text" DesignTimeRectangle="691, 232, 535, 73" ElementType="Icon" FriendlyName="'PATH'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;header&amp;gt;div&amp;gt;div&amp;gt;a&amp;gt;svg&amp;gt;path' parentid='app' tag='path' /&gt;" FuzzySelectorArgument="&lt;webctrl type='' parentid='app' tag='path' class='' aaname='' /&gt;" SearchSteps="FuzzySelector, CV" />
+                    </scg:List>
+                  </uix:TargetAnchorable.Anchors>
+                </uix:TargetAnchorable>
+              </uix:NClick.Target>
+            </uix:NClick>
+            <uix:NSelectItem DisplayName="Select Item 'Sort by Relevance'" sap:VirtualizedContainerService.HintSize="562.4,157.6" sap2010:WorkflowViewState.IdRef="NSelectItem_1" Item="Sort by Newest" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+              <uix:NSelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="3">
+                  <x:String>Sort by Relevance</x:String>
+                  <x:String>Sort by Newest</x:String>
+                  <x:String>Sort by Oldest</x:String>
+                </scg:List>
+              </uix:NSelectItem.Items>
+              <uix:NSelectItem.Target>
+                <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?query=Automation+in+the+world" CvTextArea="1301, 305, 136, 17" CvTextArgument="Sort by Relevance" CvType="Text" DesignTimeRectangle="1293, 298, 183, 34" DesignTimeScaleFactor="1.25" ElementType="DropDown" FriendlyName="'Sort by Relevance'" FullSelectorArgument="&lt;webctrl tag='SELECT' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='SELECT' type='' class='css-v7it2b' aaname='' /&gt;" Guid="4e4dff5d-338a-493a-a5ae-4ebd6c3667f6" InformativeScreenshot="caf5a529929ae5ce672aaabd4f89ce00.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector" Version="V2" Visibility="Interactive" />
+              </uix:NSelectItem.Target>
+            </uix:NSelectItem>
+            <Sequence DisplayName="Date parameters" sap:VirtualizedContainerService.HintSize="562.4,1880" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Refine results'" sap:VirtualizedContainerService.HintSize="500,157.6" sap2010:WorkflowViewState.IdRef="NClick_7" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+                <uix:NClick.Target>
+                  <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sort=newest" DesignTimeRectangle="420, 365, 125, 48" DesignTimeScaleFactor="1.25" ElementType="Button" FriendlyName="'Refine results'" FullSelectorArgument="&lt;webctrl parentid='site-content' tag='BUTTON' type='button' /&gt;" FuzzySelectorArgument="&lt;webctrl parentid='site-content' tag='BUTTON' type='button' class='css-p5555t calendar-open' aaname='Refine results via Date Range' check:innerText='Refine results via&amp;#xD;&amp;#xA;Date Range' /&gt;" Guid="8c84709c-84f5-456e-bd04-7cfdf131e99f" ImageBase64="" InformativeScreenshot="b59b1bff8222545e7722ad12f4384a60.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector" Version="V2" Visibility="Interactive">
+                    <uix:TargetAnchorable.Anchors>
+                      <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                        <uix:Target DesignTimeRectangle="434, 381, 77, 18" ElementType="Text" FriendlyName="'Refine results'" FullSelectorArgument="&lt;webctrl aaname='Date Range' parentid='site-content' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Date Range' parentid='site-content' tag='LABEL' type='' class='css-1gd5qnr' check:innerText='Refine results via&amp;#xD;&amp;#xA;Date Range' /&gt;" ImageBase64="" SearchSteps="FuzzySelector" />
+                      </scg:List>
+                    </uix:TargetAnchorable.Anchors>
+                  </uix:TargetAnchorable>
+                </uix:NClick.Target>
+              </uix:NClick>
+              <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Specific Dates'" sap:VirtualizedContainerService.HintSize="500,157.6" sap2010:WorkflowViewState.IdRef="NClick_8" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+                <uix:NClick.Target>
+                  <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sort=newest" DesignTimeRectangle="420, 607, 238, 40" DesignTimeScaleFactor="1.25" ElementType="Button" FriendlyName="'Specific Dates'" FullSelectorArgument="&lt;webctrl aria-label='Specific Dates' tag='BUTTON' type='button' /&gt;" FuzzySelectorArgument="&lt;webctrl aria-label='Specific Dates' tag='BUTTON' type='button' class='css-jba1a6 selected' aaname='Specific Dates' check:innerText='Specific Dates' /&gt;" Guid="924fbda1-a0d0-45af-9e4b-453a4a15122d" InformativeScreenshot="c16b6fccd67b2cbde780422e5bef3c77.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector" Version="V2" Visibility="Interactive" />
+                </uix:NClick.Target>
+              </uix:NClick>
+              <ui:IfElseIf DisplayName="Else If" sap:VirtualizedContainerService.HintSize="500,892.8" sap2010:WorkflowViewState.IdRef="IfElseIf_1">
+                <ui:IfElseIf.ConditionBlocks>
+                  <sc:BindingList x:TypeArguments="ui:IfElseIfBlock" AllowEdit="True" AllowNew="True" AllowRemove="True" RaiseListChangedEvents="True">
+                    <ui:IfElseIfBlock BlockType="If" Condition="[CInt(in_Config(&quot;Months&quot;)) = 0 OR CInt(in_Config(&quot;Months&quot;)) = 1]">
+                      <ui:IfElseIfBlock.Then>
+                        <Sequence DisplayName="Corpo" sap:VirtualizedContainerService.HintSize="449.6,330.4" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT startDate'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="387.2,218.4" sap2010:WorkflowViewState.IdRef="NTypeInto_9" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Text="[DateTime.Now.ToString(&quot;01/MM/yyyy&quot;)]" Version="V3">
+                            <uix:NTypeInto.Target>
+                              <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sort=newest" DesignTimeRectangle="675, 382, 125, 24" DesignTimeScaleFactor="1.25" ElementType="InputBox" FriendlyName="'INPUT startDate'" FullSelectorArgument="&lt;webctrl id='startDate' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='startDate' tag='INPUT' type='' class='css-9wn7z1' aaname='' /&gt;" Guid="67e62792-96fa-4618-9264-57f2588a795f" InformativeScreenshot="744af031caf58aff4e3a0e5a9b5f772e.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector" Version="V2" Visibility="Interactive" />
+                            </uix:NTypeInto.Target>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </uix:NTypeInto>
+                        </Sequence>
+                      </ui:IfElseIfBlock.Then>
+                    </ui:IfElseIfBlock>
+                    <ui:IfElseIfBlock BlockType="Else">
+                      <ui:IfElseIfBlock.Then>
+                        <Sequence DisplayName="Corpo" sap:VirtualizedContainerService.HintSize="449.6,330.4" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT startDate'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="387.2,218.4" sap2010:WorkflowViewState.IdRef="NTypeInto_10" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Text="[System.DateTime.Now.AddMonths(CInt(in_Config(&quot;Months&quot;))*-1).ToString(&quot;01/MM/yyyy&quot;)]" Version="V3">
+                            <uix:NTypeInto.Target>
+                              <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sort=newest" DesignTimeRectangle="675, 382, 125, 24" DesignTimeScaleFactor="1.25" ElementType="InputBox" FriendlyName="'INPUT startDate'" FullSelectorArgument="&lt;webctrl id='startDate' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='startDate' tag='INPUT' type='' class='css-9wn7z1' aaname='' /&gt;" Guid="67e62792-96fa-4618-9264-57f2588a795f" InformativeScreenshot="744af031caf58aff4e3a0e5a9b5f772e.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector" Version="V2" Visibility="Interactive" />
+                            </uix:NTypeInto.Target>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </uix:NTypeInto>
+                        </Sequence>
+                      </ui:IfElseIfBlock.Then>
+                    </ui:IfElseIfBlock>
+                  </sc:BindingList>
+                </ui:IfElseIf.ConditionBlocks>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:IfElseIf>
+              <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT endDate'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="500,218.4" sap2010:WorkflowViewState.IdRef="NTypeInto_7" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Text="[DateTime.Now.ToString(&quot;31/MM/yyyy&quot;)]" Version="V3">
+                <uix:NTypeInto.Target>
+                  <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sort=newest" DesignTimeRectangle="825, 382, 125, 24" DesignTimeScaleFactor="1.25" ElementType="InputBox" FriendlyName="'INPUT endDate'" FullSelectorArgument="&lt;webctrl id='endDate' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='endDate' tag='INPUT' type='' class='css-9wn7z1' aaname='' /&gt;" Guid="8659cf3c-a852-4c5b-afa3-decc6967d44d" InformativeScreenshot="5b2e716fb924c97375efe4e8eac686c6.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector" Version="V2" Visibility="Interactive" />
+                </uix:NTypeInto.Target>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </uix:NTypeInto>
+              <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts" sap:VirtualizedContainerService.HintSize="500,178.4" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_1" Shortcuts="[d(hk)][k(enter)][u(hk)]" Version="V3" />
+            </Sequence>
+            <Sequence DisplayName="Sections parameters" sap:VirtualizedContainerService.HintSize="562.4,870.4" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="s:String[]" Name="arrSections" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign sap:VirtualizedContainerService.HintSize="433.6,82.4" sap2010:WorkflowViewState.IdRef="Assign_1">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="s:String[]">[arrSections]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="s:String[]">[in_TransactionItem("Sections").ToString().Split(",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Refine results'" sap:VirtualizedContainerService.HintSize="433.6,157.6" sap2010:WorkflowViewState.IdRef="NClick_10" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+                <uix:NClick.Target>
+                  <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sort=newest" CvElementArea="688, 379, 26, 23" CvTextArea="632, 382, 52, 15" CvTextArgument="Section" CvType="ArrowButton" DesignTimeRectangle="620, 365, 125, 51" DesignTimeScaleFactor="1.25" ElementType="Button" FriendlyName="'Refine results'" FullSelectorArgument="&lt;webctrl aaname='Refine results via Section' parentid='site-content' tag='BUTTON' type='button' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Refine results via Section' parentid='site-content' tag='BUTTON' type='button' class='css-4d08fs' check:innerText='Refine results via&amp;#xD;&amp;#xA;Section' /&gt;" Guid="4aa9a8b9-fce0-4d30-885a-d3659ac261d9" InformativeScreenshot="ffd743c875d24ef0d5e2120fe12eb043.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
+                    <uix:TargetAnchorable.Anchors>
+                      <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                        <uix:Target CvTextArea="632, 382, 52, 15" CvTextArgument="Section" CvType="Text" DesignTimeRectangle="634, 381, 50, 18" ElementType="Text" FriendlyName="'Refine results'" FullSelectorArgument="&lt;webctrl aaname='Section' parentid='site-content' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Section' parentid='site-content' tag='LABEL' type='' class='css-9hp55g' check:innerText='Refine results via&amp;#xD;&amp;#xA;Section' /&gt;" SearchSteps="FuzzySelector, CV" />
+                      </scg:List>
+                    </uix:TargetAnchorable.Anchors>
+                  </uix:TargetAnchorable>
+                </uix:NClick.Target>
+              </uix:NClick>
+              <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="433.6,435.2" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[arrSections]">
+                <ui:ForEach.Body>
+                  <ActivityAction x:TypeArguments="x:String">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="x:String" Name="currentItem" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Corpo" sap:VirtualizedContainerService.HintSize="376.8,247.2" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'unchecked'" sap:VirtualizedContainerService.HintSize="333.6,157.6" sap2010:WorkflowViewState.IdRef="NClick_9" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+                        <uix:NClick.Target>
+                          <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sort=newest" CvElementArea="630, 468, 21, 20" CvType="CheckBox" DesignTimeRectangle="633, 471, 16, 16" DesignTimeScaleFactor="1.25" ElementType="CheckBox" FriendlyName="'Checkbox'" FullSelectorArgument="&lt;webctrl idx='2' parentid='site-content' tag='INPUT' type='checkbox' /&gt;" FuzzySelectorArgument="&lt;webctrl class='' parentid='site-content' tag='INPUT' type='checkbox' aaname='' /&gt;" Guid="b422e1cc-4a25-4932-8818-ef49949c09f6" InformativeScreenshot="8d61103f0137e3ab07da9a0135f77782.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
+                            <uix:TargetAnchorable.Anchors>
+                              <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                <uix:Target CvElementArea="630, 468, 21, 20" CvTextArea="659, 471, 52, 15" CvTextArgument="[currentItem + &quot;*&quot;]" CvType="CheckBox" DesignTimeRectangle="621, 457, 236, 43" ElementType="Text" FriendlyName="'unchecked'" FuzzySelectorArgument="[&quot;&lt;webctrl type='' class='css-1a8ayg6' parentid='site-content' tag='LABEL' aaname='' check:innerText='&quot;+currentItem+&quot;*' /&gt;&quot;]" SearchSteps="FuzzySelector, CV" />
+                              </scg:List>
+                            </uix:TargetAnchorable.Anchors>
+                          </uix:TargetAnchorable>
+                        </uix:NClick.Target>
+                      </uix:NClick>
+                    </Sequence>
+                  </ActivityAction>
+                </ui:ForEach.Body>
+              </ui:ForEach>
+            </Sequence>
+            <Sequence DisplayName="Types parameters" sap:VirtualizedContainerService.HintSize="562.4,870.4" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="ExtractDataTable" />
+                <Variable x:TypeArguments="s:String[]" Name="arrTypes" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign sap:VirtualizedContainerService.HintSize="433.6,82.4" sap2010:WorkflowViewState.IdRef="Assign_2">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="s:String[]">[arrTypes]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="s:String[]">[in_TransactionItem("Types").ToString().Split(",")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Refine results via Type'" sap:VirtualizedContainerService.HintSize="433.6,157.6" sap2010:WorkflowViewState.IdRef="NClick_5" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+                <uix:NClick.Target>
+                  <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sort=newest" CvElementArea="868, 379, 26, 24" CvTextArea="831, 382, 35, 17" CvTextArgument="Type" CvType="ArrowButton" DesignTimeRectangle="820, 365, 125, 51" DesignTimeScaleFactor="1.25" ElementType="Button" FriendlyName="'Refine results via Type'" FullSelectorArgument="&lt;webctrl aaname='Refine results via Type' parentid='site-content' tag='BUTTON' type='button' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Refine results via Type' parentid='site-content' tag='BUTTON' type='button' class='css-4d08fs' check:innerText='Refine results via&amp;#xD;&amp;#xA;Type' /&gt;" Guid="9bf3caad-001a-4485-b38d-84b31be6504d" InformativeScreenshot="27bc224d1a630ba20bf33d6fee71d651.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
+                    <uix:TargetAnchorable.Anchors>
+                      <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                        <uix:Target CvTextArea="831, 382, 35, 17" CvTextArgument="Type" CvType="Text" DesignTimeRectangle="835, 381, 31, 18" ElementType="Text" FriendlyName="'Refine results via Type'" FullSelectorArgument="&lt;webctrl aaname='Type' parentid='site-content' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Type' parentid='site-content' tag='LABEL' type='' class='css-9hp55g' check:innerText='Refine results via&amp;#xD;&amp;#xA;Type' /&gt;" SearchSteps="FuzzySelector, CV" />
+                      </scg:List>
+                    </uix:TargetAnchorable.Anchors>
+                  </uix:TargetAnchorable>
+                </uix:NClick.Target>
+              </uix:NClick>
+              <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="433.6,435.2" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[arrTypes]">
+                <ui:ForEach.Body>
+                  <ActivityAction x:TypeArguments="x:String">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="x:String" Name="currentItem" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Corpo" sap:VirtualizedContainerService.HintSize="376.8,247.2" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'unchecked'" sap:VirtualizedContainerService.HintSize="333.6,157.6" sap2010:WorkflowViewState.IdRef="NClick_12" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+                        <uix:NClick.Target>
+                          <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sort=newest" CvElementArea="830, 468, 21, 20" CvType="CheckBox" DesignTimeRectangle="833, 471, 16, 16" DesignTimeScaleFactor="1.25" ElementType="CheckBox" FriendlyName="'Checkbox'" FullSelectorArgument="&lt;webctrl idx='2' parentid='site-content' tag='INPUT' type='checkbox' /&gt;" FuzzySelectorArgument="&lt;webctrl class='' parentid='site-content' tag='INPUT' type='checkbox' aaname='' /&gt;" Guid="cef92802-9660-4d1c-9c04-b68c4a60a0f8" InformativeScreenshot="d0e1c2649be872d53e6b7116cbe7e706.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="FuzzySelector, CV" Version="V2" Visibility="Interactive">
+                            <uix:TargetAnchorable.Anchors>
+                              <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                <uix:Target CvElementArea="830, 468, 21, 20" CvTextArea="859, 471, 88, 15" CvTextArgument="Article 3.173" CvType="CheckBox" DesignTimeRectangle="821, 457, 236, 43" ElementType="Text" FriendlyName="'unchecked'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;main&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;ul&amp;gt;li&amp;gt;label' idx='2' parentid='site-content' tag='LABEL' /&gt;" FuzzySelectorArgument="[&quot;&lt;webctrl type='' class='css-1a8ayg6' parentid='site-content' tag='LABEL' aaname='' check:innerText='&quot;+currentItem+&quot;*' /&gt;&quot;]" SearchSteps="FuzzySelector, CV" />
+                              </scg:List>
+                            </uix:TargetAnchorable.Anchors>
+                          </uix:TargetAnchorable>
+                        </uix:NClick.Target>
+                      </uix:NClick>
+                    </Sequence>
+                  </ActivityAction>
+                </ui:ForEach.Body>
+              </ui:ForEach>
+            </Sequence>
+            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured' AddCvHeader='true' IsScrollEnabled='false'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Date'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column2' Name='Title'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;true&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column3' Name='Description'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;true&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column4' Name='Image name'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column2' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;webctrl tag='h4' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column3' attr='fulltext'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;webctrl tag='p' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column4' attr='src'&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='figure' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='img' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="562.4,157.6" sap2010:WorkflowViewState.IdRef="NExtractData_2" LimitExtractionTo="None" MaximumResults="0" ScopeIdentifier="aa09f31e-8d43-4dc2-84ee-63641be2ee36" Version="V3">
+              <uix:NExtractData.Target>
+                <uix:TargetAnchorable BrowserURL="https://www.nytimes.com/search?dropmab=false&amp;query=Automation%20in%20the%20world&amp;sections=Arts%7Cnyt%3A%2F%2Fsection%2F6e6ee292-b4bd-5006-a619-9ceab03524f2%2CBooks%7Cnyt%3A%2F%2Fsection%2F550f75e2-fc37-5d5c-9dd1-c665ac221b49%2CWorld%7Cnyt%3A%2F%2Fsection%2F70e865b6-cc70-5181-84c9-8368b3a5c34b&amp;sort=best&amp;types=article%2Cvideo" DesignTimeRectangle="9, -5802, 1899, 6072" DesignTimeScaleFactor="1.25" FriendlyName="'Feb. 6Book'" FullSelectorArgument="&lt;webctrl tag='OL' /&gt;" Guid="6da60cdd-672b-4286-8729-f56455105f88" InformativeScreenshot="fec96ea09d23a8a4a7818dbba583d813.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The New York Times - Search' /&gt;" SearchSteps="Selector" Version="V2" Visibility="Interactive" />
+              </uix:NExtractData.Target>
+            </uix:NExtractData>
+            <ui:AddDataColumn x:TypeArguments="x:Object" AllowDBNull="{x:Null}" AutoIncrement="{x:Null}" Column="{x:Null}" DefaultValue="{x:Null}" MaxLength="{x:Null}" Unique="{x:Null}" ColumnName="Phrases count" DataTable="[ExtractDataTable]" DisplayName="Add Data Column" sap:VirtualizedContainerService.HintSize="562.4,188" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_1" />
+            <ui:AddDataColumn x:TypeArguments="x:Object" AllowDBNull="{x:Null}" AutoIncrement="{x:Null}" Column="{x:Null}" DefaultValue="{x:Null}" MaxLength="{x:Null}" Unique="{x:Null}" ColumnName="Contains money" DataTable="[ExtractDataTable]" DisplayName="Add Data Column" sap:VirtualizedContainerService.HintSize="562.4,188" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_2" />
+            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="496,24.8" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+              <ui:ForEachRow.Body>
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Corpo" sap:VirtualizedContainerService.HintSize="656,1252" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="colMatches" />
+                      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="colDescDollar" />
+                      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="colTitleDollar" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:Matches FirstMatch="{x:Null}" DisplayName="Find Matching Patterns" sap:VirtualizedContainerService.HintSize="612.8,60" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[CurrentRow.Item(&quot;Description&quot;).ToString]" IsBuilderTabModified="False" Pattern="[in_Config(&quot;SearchPhrase&quot;).ToString]" RegexOption="IgnoreCase, Compiled" Result="[colMatches]" />
+                    <Assign sap:VirtualizedContainerService.HintSize="612.8,81.6" sap2010:WorkflowViewState.IdRef="Assign_3">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Object">[CurrentRow.Item("Phrases Count")]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Object">[colMatches.Count]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:Matches FirstMatch="{x:Null}" BuilderPattern="[\$ ]+?(\d+([,\.\d]+)?)" DisplayName="Find Matching Patterns" sap:VirtualizedContainerService.HintSize="612.8,60" sap2010:WorkflowViewState.IdRef="Matches_2" Input="[CurrentRow.Item(&quot;Description&quot;).ToString]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;LIT&quot;,&quot;OperationName&quot;:&quot;Literal&quot;,&quot;OperationValue&quot;:&quot;[\\$ ]+?(\\d+([,\\.\\d]+)?)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exatamente&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="[\$ ]+?(\d+([,\.\d]+)?)" RegexOption="IgnoreCase, Compiled" Result="[colDescDollar]" />
+                    <ui:Matches FirstMatch="{x:Null}" BuilderPattern="[\$ ]+?(\d+([,\.\d]+)?)" DisplayName="Find Matching Patterns" sap:VirtualizedContainerService.HintSize="612.8,60" sap2010:WorkflowViewState.IdRef="Matches_3" Input="[CurrentRow.Item(&quot;Title&quot;).ToString]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Avançado&quot;,&quot;OperationValue&quot;:&quot;[\\$ ]+?(\\d+([,\\.\\d]+)?)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exatamente&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="[\$ ]+?(\d+([,\.\d]+)?)" RegexOption="IgnoreCase, Compiled" Result="[colTitleDollar]" />
+                    <ui:IfElseIf DisplayName="Else If" sap:VirtualizedContainerService.HintSize="612.8,619.2" sap2010:WorkflowViewState.IdRef="IfElseIf_2">
+                      <ui:IfElseIf.ConditionBlocks>
+                        <sc:BindingList x:TypeArguments="ui:IfElseIfBlock" AllowEdit="True" AllowNew="True" AllowRemove="True" RaiseListChangedEvents="True">
+                          <ui:IfElseIfBlock BlockType="If" Condition="[colTitleDollar.Count &gt; 1 OR colDescDollar.Count &gt; 1]">
+                            <ui:IfElseIfBlock.Then>
+                              <Sequence DisplayName="Corpo" sap:VirtualizedContainerService.HintSize="496,193.6" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Assign sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_5">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow.Item("Contains money")]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Object">["Verdadeiro"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </Sequence>
+                            </ui:IfElseIfBlock.Then>
+                          </ui:IfElseIfBlock>
+                          <ui:IfElseIfBlock BlockType="Else">
+                            <ui:IfElseIfBlock.Then>
+                              <Sequence DisplayName="Corpo" sap:VirtualizedContainerService.HintSize="496,193.6" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Assign sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_6">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow.Item("Contains money")]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Object">["Falso"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </Sequence>
+                            </ui:IfElseIfBlock.Then>
+                          </ui:IfElseIfBlock>
+                        </sc:BindingList>
+                      </ui:IfElseIf.ConditionBlocks>
+                    </ui:IfElseIf>
+                    <Assign sap:VirtualizedContainerService.HintSize="612.8,81.6" sap2010:WorkflowViewState.IdRef="Assign_4">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Object">[CurrentRow.Item("Phrases Count")]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Object">[colMatches.Count]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEachRow.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:ForEachRow>
+            <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="496,24.8" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1">
+              <ueab:ExcelProcessScopeX.Body>
+                <ActivityAction x:TypeArguments="ui:IExcelProcess">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="ui:IExcelProcess" Name="ExcelProcessScopeTag" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Fazer" sap:VirtualizedContainerService.HintSize="449.6,136.8" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ueab:ExcelApplicationCard Password="{x:Null}" ReadFormatting="{x:Null}" DisplayName="Use Excel File" sap:VirtualizedContainerService.HintSize="387.2,24.8" sap2010:WorkflowViewState.IdRef="ExcelApplicationCard_1" ResizeWindow="None" WorkbookPath="Data\NYbase.xlsx">
+                      <ueab:ExcelApplicationCard.Body>
+                        <ActivityAction x:TypeArguments="ue:IWorkbookQuickHandle">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="ue:IWorkbookQuickHandle" Name="Excel" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Fazer" sap:VirtualizedContainerService.HintSize="496,273.6" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ueab:WriteRangeX Destination="[Excel.Sheet(&quot;Sheet1&quot;)]" DisplayName="Write DataTable to Excel" sap:VirtualizedContainerService.HintSize="433.6,160" sap2010:WorkflowViewState.IdRef="WriteRangeX_1" IgnoreEmptySource="False" Source="[ExtractDataTable]" />
+                          </Sequence>
+                        </ActivityAction>
+                      </ueab:ExcelApplicationCard.Body>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ueab:ExcelApplicationCard>
+                  </Sequence>
+                </ActivityAction>
+              </ueab:ExcelProcessScopeX.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ueab:ExcelProcessScopeX>
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="-9, -9, 1938, 1048" BrowserType="Chrome" IconBase64="iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAABIJJREFUaEPtmFtoVUcUhlMtWrTxkvvlGGNI1ZoXBcH0yaC2XvCCaPSh5KHRVytSVIoKIRiNpbYqikKhtJZ6exAVRVCiERTBBxVSWqx3kSomtuqDVmM8fmuzdpgz2ck5OWd2onB++Jm9Z9as9a/Zs2dm74w00kij7xGNRj+oqKgYVFpa+pGUcq9N7weqq6sHlpWVDc/NzS3Pzs7elJWV9RIeysnJGacm4YOAlQRvgIfhWXgE7kLEcspP1Swh4OsgjNLvBVyo1eGAUfuEIM0SMA7vkMyPlJXatVvgb5vfj+vnsFcDkDBEDM6f+sF6wdv020JZWVdXN0DdeaAuQttDw1aS+Fmb3aG4uBi/2Y/MQMkQH09hE/wV/i73AXY3Naw7MB1+CAgUCknqmYZ1B5zGPOYwSay/NawbsF6PCAoUFklgp4Z2g0gkgt+YAA+YUl/m5+cPFcp6Tv1iuBW2+HbJEN/P8TlGQ7sDzh9rkDcInqjVgUDEDPg1bMK+XfslwnZ8L1U3boGYHRKE8ppWxYAnMpY2Wc8PmAmWlJSMpL6G+v3QH4QgtuBjqnZzD5xnIuQygVrNtZz7CfA4fEP73qqqqg+1qRMyzWiPyJkHm/Ey/SjXUHcIruR6ipqGi6KioiEErydobXl5+WDK7+ArKE9mr30ow7aI+s20/wuXaXUnaJ+rl30LxMjueVGEq/i/ZJS1WY4bEyUh2rzklO9GAoWFhaMRc88QFkXwLBl9ytkIP2O2Gez/BOQIjJA/TGEIvp6XlzcT8XPgErPNYv8ngNhjtjDqGuR8L+2SiN1usEsC9F0vT1RvwwUCFlmCPDLqk9Qk4QR0NZKXWwbgH3z0uK84AcFipo4G/99cNhNJQFevfWYbfp5Rfu45CQMyymZAnwS+ryYe4iWgZ6pzVr3PV/irUVduwcv2TUBAYYuaeIiXgHzAU3qfjzYRL98J09SVW+D4l26C/qkmHhKZQrKL02+72cb9g1DfAwKcNgMabFUTD4m+xAJ8rpV6ymuhnD5NEOSCJcZnB9MrU816lYCAvqs5nuTobQwKCgpK9TJ1kIAci4NERc3NKIkEut3IiNmol6mD4IEvnvInNXOWALZf0HZAb1MHL9hGS4zJl0yDUWLXQwJPGNHpnjMDQQno199d2r7XqtSBs/mGmC5E3GHZXe0EqL8BVzAAH6urGNgJyJGEfie0f61Wpw52z2EIeeELCyJi6v0EsJVfjQvsn1g2zATkRy99O6cqL/EEbXIDBAXuBSaxaSaJz7RLXPgJ6E5/xfB1yzNwCdbqMhzLX+QY0TZJ4j7lSjl6a9dAyNPBbhWUb+XX0tcnPr5VM7fA8TozUBy+xv4S3C3Ti/tVXK/lWv7wyTzv7gO/DQ7TkG6hL9lJI1gY/ErDhQNGMJMg562gTsgT+k3DhAv9TSK/RAKFJEPEH5XTqoboG/A0lhP8P1tML9mB+Eb/s7TPoX/eGhDSagmLS/qdYhAmq6v+hXwqImYewvbAq4gL2vjaqJeD4QbK8dr13YWs9TI1hPF25TTSSCMZZGS8BR3ANwKvfxJ0AAAAAElFTkSuQmCC" InformativeScreenshot="49fa8eea705ab564ebe381d28f5eb6ca.jpg" Selector="&lt;html app='chrome.exe' title='The New York Times - Breaking News, US News, World News and Videos' /&gt;" Title="In Tucker Carlson Interview, Putin Suggests a Peace Deal - The New York Times" Url="https://www.nytimes.com/" />
+      </uix:NApplicationCard.TargetApp>
+    </uix:NApplicationCard>
+  </Sequence>
+</Activity>
